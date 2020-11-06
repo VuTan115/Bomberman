@@ -7,10 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
-import uet.oop.bomberman.entities.Bomber;
-import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Grass;
-import uet.oop.bomberman.entities.Wall;
+import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.io.FileNotFoundException;
@@ -19,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class BombermanGame extends Application {
 
@@ -47,20 +45,14 @@ public class BombermanGame extends Application {
         createMap();
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
-
         // Tao root container
         Group root = new Group();
-
         root.getChildren().add(canvas);
-
         // Tao scene
         Scene scene = new Scene(root);
-
-
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
-
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
@@ -69,13 +61,10 @@ public class BombermanGame extends Application {
             }
         };
         timer.start();
-
-
         Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
         bomber = (Bomber) bomberman;
         entities.add(bomber);
         scene.setOnKeyPressed(ke -> {
-
             switch (ke.getCode()) {
                 case UP:
                     //bomberman.setY(bomberman.getY() - Sprite.SCALED_SIZE);
@@ -119,30 +108,86 @@ public class BombermanGame extends Application {
                 size = "";
             }
         }
-        LEVEL = Integer.parseInt(mapSize.get(0));
-        HEIGHT = Integer.parseInt(mapSize.get(1));
-        WIDTH = Integer.parseInt(mapSize.get(2));
+        LEVEL = Integer.parseInt(mapSize.get(0));//1
+        HEIGHT = Integer.parseInt(mapSize.get(1));//13
+        WIDTH = Integer.parseInt(mapSize.get(2));//31
 
+    }
+
+    public void transferTxtFileToMap(String str, int height) {
+        int length = str.length();
+        Entity object = null;
+        for (int i = 0; i < length; i++) {
+            switch (str.charAt(i)) {
+                case '#': {
+                    object = new Wall(i, height, Sprite.wall.getFxImage());
+                    break;
+                }
+                case '*': {
+                    object = new Brick(i, height, Sprite.brick.getFxImage());
+                    break;
+                }
+                case 'x': {
+                    object = new Portal(i, height, Sprite.portal.getFxImage());
+                    break;
+                }
+                case ' ': {
+                    object = new Portal(i, height, Sprite.grass.getFxImage());
+                    break;
+                }
+                case '1': {
+                    object = new Portal(i, height, Sprite.balloom_left1.getFxImage());
+                    break;
+                }
+
+                case '2': {
+                    object = new Portal(i, height, Sprite.oneal_left1.getFxImage());
+                    break;
+                }
+
+                case 'b': {
+                    object = new Portal(i, height, Sprite.bomb.getFxImage());
+                    break;
+                }
+                case 'f': {
+                    object = new Portal(i, height, Sprite.powerup_flames.getFxImage());
+                    break;
+                }
+                case 's': {
+                    object = new Portal(i, height, Sprite.powerup_speed.getFxImage());
+                    break;
+                }
+
+                default:
+                    object = new Portal(i, height, Sprite.grass.getFxImage());
+            }
+            stillObjects.add(object);
+        }
     }
 
     public void createMap() {
         try {
             List<String> lines = Files.readAllLines(Paths.get("res/levels/Level1.txt"));
-            System.out.println(lines);
             getMapSize(lines.get(0));
             lines.remove(0);
+            AtomicInteger height = new AtomicInteger();
             lines.forEach(line -> {
-                for (int i = 0; i < WIDTH; i++) {
-                    for (int j = 0; j < HEIGHT; j++) {
-                        Entity object;
-                        if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
-                            object = new Wall(i, j, Sprite.wall.getFxImage());
-                        } else {
-                            object = new Grass(i, j, Sprite.grass.getFxImage());
-                        }
-                        stillObjects.add(object);
-                    }
-                }
+                System.out.println(height);
+                transferTxtFileToMap(line, height.get());
+                height.incrementAndGet();
+
+
+//                for (int i = 0; i < WIDTH; i++) {
+//                    for (int j = 0; j < HEIGHT; j++) {
+//                        Entity object;
+//                        if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
+//                            object = new Wall(i, j, Sprite.wall.getFxImage());
+//                        } else {
+//                            object = new Grass(i, j, Sprite.grass.getFxImage());
+//                        }
+//                        stillObjects.add(object);
+//                    }
+//                }
             });
             System.out.println(lines);
         } catch (IOException e) {
