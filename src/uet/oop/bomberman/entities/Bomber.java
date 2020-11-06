@@ -39,7 +39,7 @@ public class Bomber extends Entity {
     public boolean checkCollision(int nextStepX, int nextStepY) {
 
         char temp = BombermanGame.mainMap[nextStepY][nextStepX];
-        if (temp == '#' || temp == '*') {
+        if (temp == '#' || temp == '*' || temp == 'b') {
             return true;
         }
         return false;

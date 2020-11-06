@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Sprite;
 
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,12 +25,13 @@ public class BombermanGame extends Application {
     public static int HEIGHT;
     public static int LEVEL;
     public static char[][] mainMap;
-
+    private Bom bom;
     private GraphicsContext gc;
     private Canvas canvas;
     private Bomber bomber;
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
+    private List<Bom> boms = new ArrayList<>();
 
     public BombermanGame() throws FileNotFoundException {
     }
@@ -69,30 +69,37 @@ public class BombermanGame extends Application {
         scene.setOnKeyPressed(ke -> {
             switch (ke.getCode()) {
                 case UP:
-                    //bomberman.setY(bomberman.getY() - Sprite.SCALED_SIZE);
+                case W:
                     bomber.moveUp();
                     bomberman.setImg(Sprite.player_up.getFxImage());
-
                     System.out.println("moveUp");
-
                     break;
+
                 case DOWN:
-                    //bomberman.setY(bomberman.getY() + Sprite.SCALED_SIZE);
+                case S:
                     bomber.moveDown();
                     bomberman.setImg(Sprite.player_down.getFxImage());
                     System.out.println("moveDown");
                     break;
+
                 case LEFT:
-                    //bomberman.setX(bomberman.getX() - Sprite.SCALED_SIZE);
+                case A:
                     bomber.moveLeft();
                     bomberman.setImg(Sprite.player_left.getFxImage());
                     System.out.println("moveLeft");
                     break;
+
                 case RIGHT:
-                    //bomberman.setX(bomberman.getX() + Sprite.SCALED_SIZE);
+                case D:
                     bomber.moveRight();
                     bomberman.setImg(Sprite.player_right.getFxImage());
                     System.out.println("moveRight");
+                    break;
+                case SPACE:
+                case SHIFT:
+                    bom = new Bom(bomber.getX()/Sprite.SCALED_SIZE, bomber.getY()/Sprite.SCALED_SIZE, Sprite.bomb.getFxImage());
+                    boms.add(bom);
+                    mainMap[bomberman.getY() / Sprite.SCALED_SIZE][bomberman.getX() / Sprite.SCALED_SIZE] = 'b';
                     break;
             }
 
@@ -188,11 +195,13 @@ public class BombermanGame extends Application {
 
     public void update() {
         entities.forEach(Entity::update);
+        boms.forEach(Entity::update);
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
+        boms.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
     }
 }
