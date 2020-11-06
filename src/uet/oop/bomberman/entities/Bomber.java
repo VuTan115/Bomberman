@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomber extends Entity {
@@ -12,19 +13,36 @@ public class Bomber extends Entity {
     }
 
     public void moveUp() {
-        y = y - Sprite.SCALED_SIZE;
+        if (!checkCollision(x / Sprite.SCALED_SIZE, y / Sprite.SCALED_SIZE - 1)) {
+            y = y - Sprite.SCALED_SIZE;
+        }
     }
 
     public void moveLeft() {
-        x = x - Sprite.SCALED_SIZE;
+        if (!checkCollision(x / Sprite.SCALED_SIZE - 1, y / Sprite.SCALED_SIZE)) {
+            x = x - Sprite.SCALED_SIZE;
+        }
     }
 
     public void moveDown() {
-        y = y + Sprite.SCALED_SIZE;
+        if (!checkCollision(x / Sprite.SCALED_SIZE, y / Sprite.SCALED_SIZE + 1)) {
+            y = y + Sprite.SCALED_SIZE;
+        }
     }
 
     public void moveRight() {
-        x = x + Sprite.SCALED_SIZE;
+        if (!checkCollision(x / Sprite.SCALED_SIZE + 1, y / Sprite.SCALED_SIZE)) {
+            x = x + Sprite.SCALED_SIZE;
+        }
+    }
+
+    public boolean checkCollision(int nextStepX, int nextStepY) {
+
+        char temp = BombermanGame.mainMap[nextStepY][nextStepX];
+        if (temp == '#' || temp == '*') {
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,6 +25,7 @@ public class BombermanGame extends Application {
     public static int WIDTH;
     public static int HEIGHT;
     public static int LEVEL;
+    public static char[][] mainMap;
 
     private GraphicsContext gc;
     private Canvas canvas;
@@ -111,6 +113,7 @@ public class BombermanGame extends Application {
         LEVEL = Integer.parseInt(mapSize.get(0));//1
         HEIGHT = Integer.parseInt(mapSize.get(1));//13
         WIDTH = Integer.parseInt(mapSize.get(2));//31
+        mainMap = new char[HEIGHT][WIDTH];
 
     }
 
@@ -118,6 +121,7 @@ public class BombermanGame extends Application {
         int length = str.length();
         Entity object = null;
         for (int i = 0; i < length; i++) {
+            mainMap[height][i] = str.charAt(i);
             switch (str.charAt(i)) {
                 case '#': {
                     object = new Wall(i, height, Sprite.wall.getFxImage());
@@ -169,27 +173,14 @@ public class BombermanGame extends Application {
         try {
             List<String> lines = Files.readAllLines(Paths.get("res/levels/Level1.txt"));
             getMapSize(lines.get(0));
+
             lines.remove(0);
             AtomicInteger height = new AtomicInteger();
             lines.forEach(line -> {
-                System.out.println(height);
                 transferTxtFileToMap(line, height.get());
                 height.incrementAndGet();
 
-
-//                for (int i = 0; i < WIDTH; i++) {
-//                    for (int j = 0; j < HEIGHT; j++) {
-//                        Entity object;
-//                        if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
-//                            object = new Wall(i, j, Sprite.wall.getFxImage());
-//                        } else {
-//                            object = new Grass(i, j, Sprite.grass.getFxImage());
-//                        }
-//                        stillObjects.add(object);
-//                    }
-//                }
             });
-            System.out.println(lines);
         } catch (IOException e) {
             e.printStackTrace();
         }
