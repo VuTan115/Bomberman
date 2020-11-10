@@ -2,11 +2,11 @@ package uet.oop.bomberman.entities;
 
 import javafx.scene.image.Image;
 
-public class Speed extends Entity {
-    public Speed() {
+public class SpeedItem extends Entity {
+    public SpeedItem() {
     }
 
-    public Speed(int xUnit, int yUnit, Image img) {
+    public SpeedItem(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
     }
 

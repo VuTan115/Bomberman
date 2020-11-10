@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Sprite;
@@ -55,6 +56,9 @@ public class BombermanGame extends Application {
         Scene scene = new Scene(root);
         // Them scene vao stage
         stage.setScene(scene);
+        stage.setTitle("Bomberman ");
+        stage.getIcons().add(new Image("file:///E:/Clone/Bomberman/res/textures/Bomberman_Touch_cover_art.png"));
+        stage.resizableProperty().setValue(Boolean.FALSE);
         stage.show();
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -166,7 +170,7 @@ public class BombermanGame extends Application {
                     break;
                 }
                 case 's': {
-                    object = new Speed(i, height, Sprite.powerup_speed.getFxImage());
+                    object = new SpeedItem(i, height, Sprite.powerup_speed.getFxImage());
                     break;
                 }
 
