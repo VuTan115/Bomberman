@@ -32,6 +32,7 @@ public class BombermanGame extends Application {
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
     private List<Bom> boms = new ArrayList<>();
+    private List<Grass> grass = new ArrayList<>();
 
     public BombermanGame() throws FileNotFoundException {
     }
@@ -97,12 +98,11 @@ public class BombermanGame extends Application {
                     break;
                 case SPACE:
                 case SHIFT:
-                    bom = new Bom(bomber.getX()/Sprite.SCALED_SIZE, bomber.getY()/Sprite.SCALED_SIZE, Sprite.bomb.getFxImage());
+                    bom = new Bom(bomber.getX() / Sprite.SCALED_SIZE, bomber.getY() / Sprite.SCALED_SIZE, Sprite.bomb.getFxImage());
                     boms.add(bom);
                     mainMap[bomberman.getY() / Sprite.SCALED_SIZE][bomberman.getX() / Sprite.SCALED_SIZE] = 'b';
                     break;
             }
-
         });
     }
 
@@ -114,7 +114,7 @@ public class BombermanGame extends Application {
             size += str.charAt(i);
             if (str.charAt(i) == ' ' || i == len - 1) {
                 mapSize.add(size.trim());
-                size = "";
+                   size = "";
             }
         }
         LEVEL = Integer.parseInt(mapSize.get(0));//1
@@ -127,8 +127,9 @@ public class BombermanGame extends Application {
     public void transferTxtFileToMap(String str, int height) {
         int length = str.length();
         Entity object = null;
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {// cot ngang
             mainMap[height][i] = str.charAt(i);
+            grass.add(new Grass(i, height, Sprite.grass.getFxImage()));
             switch (str.charAt(i)) {
                 case '#': {
                     object = new Wall(i, height, Sprite.wall.getFxImage());
@@ -143,34 +144,34 @@ public class BombermanGame extends Application {
                     break;
                 }
                 case ' ': {
-                    object = new Portal(i, height, Sprite.grass.getFxImage());
+                    object = new Grass(i, height, Sprite.grass.getFxImage());
                     break;
                 }
                 case '1': {
-                    object = new Portal(i, height, Sprite.balloom_left1.getFxImage());
+                    object = new Balloon(i, height, Sprite.balloom_left1.getFxImage());
                     break;
                 }
 
                 case '2': {
-                    object = new Portal(i, height, Sprite.oneal_left1.getFxImage());
+                    object = new Oneal(i, height, Sprite.oneal_left1.getFxImage());
                     break;
                 }
 
-                case 'b': {
-                    object = new Portal(i, height, Sprite.bomb.getFxImage());
-                    break;
-                }
+//                case 'b': {
+//                    object = new Bom(i, height, Sprite.bomb.getFxImage());
+//                    break;
+//                }
                 case 'f': {
-                    object = new Portal(i, height, Sprite.powerup_flames.getFxImage());
+                    object = new Flame(i, height, Sprite.powerup_flames.getFxImage());
                     break;
                 }
                 case 's': {
-                    object = new Portal(i, height, Sprite.powerup_speed.getFxImage());
+                    object = new Speed(i, height, Sprite.powerup_speed.getFxImage());
                     break;
                 }
 
                 default:
-                    object = new Portal(i, height, Sprite.grass.getFxImage());
+                    object = new Grass(i, height, Sprite.grass.getFxImage());
             }
             stillObjects.add(object);
         }
@@ -180,13 +181,13 @@ public class BombermanGame extends Application {
         try {
             List<String> lines = Files.readAllLines(Paths.get("res/levels/Level1.txt"));
             getMapSize(lines.get(0));
-
+            //System.out.println(lines);
             lines.remove(0);
-            AtomicInteger height = new AtomicInteger();
+            AtomicInteger height = new AtomicInteger(); //cot doc
             lines.forEach(line -> {
                 transferTxtFileToMap(line, height.get());
+                //grass.add(new Grass(height.get(),0,Sprite.grass.getFxImage()));
                 height.incrementAndGet();
-
             });
         } catch (IOException e) {
             e.printStackTrace();
@@ -200,6 +201,7 @@ public class BombermanGame extends Application {
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        grass.forEach(g -> g.render(gc));
         stillObjects.forEach(g -> g.render(gc));
         boms.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
