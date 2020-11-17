@@ -1,8 +1,9 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.mobile;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.entities.Entity;
 
-public class Balloon  extends Entity{
+public class Balloon  extends Entity {
     public Balloon() {
     }
 
