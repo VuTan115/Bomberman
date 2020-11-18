@@ -12,8 +12,8 @@ import java.util.List;
 
 public class Bomber extends Entity {
     private double speed;
-    public int spaceStep = 4;
-    public static Sprite prevSprite = null;
+    private int spaceStep = 4;
+    private static Sprite prevSprite = null;
     static private int countdown = 0;
 
     private List<Bom> bombs = new ArrayList<>();
