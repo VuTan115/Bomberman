@@ -34,7 +34,6 @@ public class BombermanGame extends Application {
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> dynamicObject= new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
-    private List<Bom> bombs = new ArrayList<>();
     private List<Grass> grass = new ArrayList<>();
     public BombermanGame()  {
     }
@@ -53,7 +52,7 @@ public class BombermanGame extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Bomberman");
-        stage.getIcons().add(new Image("file:///E:/Clone/Bomberman/res/textures/Bomberman_Touch_cover_art.png"));
+        stage.getIcons().add(new Image("/textures/gameLogo.jpg"));
         stage.resizableProperty().setValue(Boolean.FALSE);
         stage.show();
 
@@ -64,45 +63,12 @@ public class BombermanGame extends Application {
                 update();
             }
         };
+
         timer.start();
-        Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
-        bomber = (Bomber) bomberman;
-        entities.add(bomber);
+        bomber = new Bomber(1, 1, Sprite.player_right.getFxImage());
 
         scene.setOnKeyPressed(ke -> {
-            switch (ke.getCode()) {
-                case UP:
-                case W:
-                    bomber.moveUp();
-                    bomberman.setImg(Bomber.prevSprite.getFxImage());
-                    break;
-
-                case DOWN:
-                case S:
-                    bomber.moveDown();
-                    bomberman.setImg(Bomber.prevSprite.getFxImage());
-                    break;
-
-                case LEFT:
-                case A:
-                    bomber.moveLeft();
-                    bomberman.setImg(Bomber.prevSprite.getFxImage());
-                    break;
-
-                case RIGHT:
-                case D:
-                    bomber.moveRight();
-                    bomberman.setImg(Bomber.prevSprite.getFxImage());
-                    break;
-
-                case SPACE:
-                case SHIFT:
-                    bom = new Bom(bomber.getX() / Sprite.SCALED_SIZE, bomber.getY() / Sprite.SCALED_SIZE, Sprite.bomb.getFxImage());
-                    bombs.add(bom);
-                    mainMap[bomberman.getY() / Sprite.SCALED_SIZE][bomberman.getX() / Sprite.SCALED_SIZE] = 'b';
-                    System.out.println("create bomb");
-                    break;
-            }
+            bomber.undou(ke, bomber);
         });
     }
 
@@ -191,7 +157,7 @@ public class BombermanGame extends Application {
 
     public void update() {
         entities.forEach(Entity::update);
-        bombs.forEach(Entity::update);
+        bomber.update();
     }
 
     public void render() {
@@ -199,7 +165,6 @@ public class BombermanGame extends Application {
         grass.forEach(g -> g.render(gc));
         stillObjects.forEach(g -> g.render(gc));
         dynamicObject.forEach(g -> g.render(gc));
-        bombs.forEach(g -> g.render(gc));
-        entities.forEach(g -> g.render(gc));
+        bomber.render(gc);
     }
 }

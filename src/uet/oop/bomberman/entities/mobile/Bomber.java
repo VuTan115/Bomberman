@@ -1,15 +1,22 @@
 package uet.oop.bomberman.entities.mobile;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bomber extends Entity {
     private double speed;
     public int spaceStep = 4;
     public static Sprite prevSprite = null;
     static private int countdown = 0;
+
+    private List<Bom> bombs = new ArrayList<>();
 
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
@@ -115,6 +122,42 @@ public class Bomber extends Entity {
         }
     }
 
+    public void undou(KeyEvent ke, Bomber bomber) {
+        switch (ke.getCode()) {
+            case UP:
+            case W:
+                bomber.moveUp();
+                bomber.setImg(Bomber.prevSprite.getFxImage());
+                break;
+
+            case DOWN:
+            case S:
+                bomber.moveDown();
+                bomber.setImg(Bomber.prevSprite.getFxImage());
+                break;
+
+            case LEFT:
+            case A:
+                bomber.moveLeft();
+                bomber.setImg(Bomber.prevSprite.getFxImage());
+                break;
+
+            case RIGHT:
+            case D:
+                bomber.moveRight();
+                bomber.setImg(Bomber.prevSprite.getFxImage());
+                break;
+
+            case SPACE:
+            case SHIFT:
+                Bom bom = new Bom(bomber.getX() / Sprite.SCALED_SIZE, bomber.getY() / Sprite.SCALED_SIZE, Sprite.bomb.getFxImage());
+                bombs.add(bom);
+                BombermanGame.mainMap[bomber.getY() / Sprite.SCALED_SIZE][bomber.getX() / Sprite.SCALED_SIZE] = 'b';
+                System.out.println("create bomb");
+                break;
+        }
+    }
+
     public boolean checkCollision(int nextStepX, int nextStepY) {
         System.out.println(nextStepX + " " + nextStepY);
         char temp = BombermanGame.mainMap[nextStepY][nextStepX];
@@ -126,6 +169,12 @@ public class Bomber extends Entity {
 
     @Override
     public void update() {
+        bombs.forEach(Entity::update);
+    }
 
+    @Override
+    public void render(GraphicsContext gc) {
+        bombs.forEach(g -> g.render(gc));
+        super.render(gc);
     }
 }
