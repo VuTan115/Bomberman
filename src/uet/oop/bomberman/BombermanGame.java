@@ -23,11 +23,14 @@ public class BombermanGame extends Application {
     public static int WIDTH;
     public static int HEIGHT;
     public static int LEVEL;
+
     public static char[][] mainMap;
+
     private Bom bom;
     private GraphicsContext gc;
     private Canvas canvas;
     private Bomber bomber;
+
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> dynamicObject= new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
@@ -41,21 +44,19 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
-        // Tao Canvas
         createMap();
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
-        // Tao root container
         Group root = new Group();
         root.getChildren().add(canvas);
-        // Tao scene
+
         Scene scene = new Scene(root);
-        // Them scene vao stage
         stage.setScene(scene);
-        stage.setTitle("Bomberman ");
+        stage.setTitle("Bomberman");
         stage.getIcons().add(new Image("file:///E:/Clone/Bomberman/res/textures/Bomberman_Touch_cover_art.png"));
         stage.resizableProperty().setValue(Boolean.FALSE);
         stage.show();
+
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
@@ -67,35 +68,33 @@ public class BombermanGame extends Application {
         Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
         bomber = (Bomber) bomberman;
         entities.add(bomber);
+
         scene.setOnKeyPressed(ke -> {
             switch (ke.getCode()) {
                 case UP:
                 case W:
                     bomber.moveUp();
-                    bomberman.setImg(Sprite.player_up.getFxImage());
-                    System.out.println("moveUp");
+                    bomberman.setImg(Bomber.prevSprite.getFxImage());
                     break;
 
                 case DOWN:
                 case S:
                     bomber.moveDown();
-                    bomberman.setImg(Sprite.player_down.getFxImage());
-                    System.out.println("moveDown");
+                    bomberman.setImg(Bomber.prevSprite.getFxImage());
                     break;
 
                 case LEFT:
                 case A:
                     bomber.moveLeft();
-                    bomberman.setImg(Sprite.player_left.getFxImage());
-                    System.out.println("moveLeft");
+                    bomberman.setImg(Bomber.prevSprite.getFxImage());
                     break;
 
                 case RIGHT:
                 case D:
                     bomber.moveRight();
-                    bomberman.setImg(Sprite.player_right.getFxImage());
-                    System.out.println("moveRight");
+                    bomberman.setImg(Bomber.prevSprite.getFxImage());
                     break;
+
                 case SPACE:
                 case SHIFT:
                     bom = new Bom(bomber.getX() / Sprite.SCALED_SIZE, bomber.getY() / Sprite.SCALED_SIZE, Sprite.bomb.getFxImage());
@@ -106,6 +105,7 @@ public class BombermanGame extends Application {
             }
         });
     }
+
     public void getMapSize(String str) {
         List<String> mapSize = new ArrayList<>();
         String size = "";
@@ -127,9 +127,7 @@ public class BombermanGame extends Application {
     public void transferTxtFileToMap(String str, int height) {
         int length = str.length();
         Entity object = null;
-
-
-        for (int i = 0; i < length; i++) {// cot ngang
+        for (int i = 0; i < length; i++) {
             mainMap[height][i] = str.charAt(i);
             grass.add(new Grass(i, height, Sprite.grass.getFxImage()));
             switch (str.charAt(i)) {
@@ -180,12 +178,10 @@ public class BombermanGame extends Application {
         try {
             List<String> lines = Files.readAllLines(Paths.get("res/levels/Level1.txt"));
             getMapSize(lines.get(0));
-            //System.out.println(lines);
             lines.remove(0);
-            AtomicInteger height = new AtomicInteger(); //cot doc
+            AtomicInteger height = new AtomicInteger();
             lines.forEach(line -> {
                 transferTxtFileToMap(line, height.get());
-                //grass.add(new Grass(height.get(),0,Sprite.grass.getFxImage()));
                 height.incrementAndGet();
             });
         } catch (IOException e) {
