@@ -68,6 +68,12 @@ public class BombermanGame extends Application {
         bomber = new Bomber(1, 1, Sprite.player_right.getFxImage());
 
         scene.setOnKeyPressed(ke -> {
+            bomber.setMoving(true);
+            bomber.undou(ke, bomber);
+        });
+
+        scene.setOnKeyReleased(ke -> {
+            bomber.setMoving(false);
             bomber.undou(ke, bomber);
         });
     }

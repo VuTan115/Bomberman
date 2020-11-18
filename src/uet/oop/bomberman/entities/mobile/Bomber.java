@@ -11,8 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bomber extends Entity {
+    private boolean moving = false;
     private double speed;
-    private int spaceStep = 4;
+    private int spaceStep = 8;
     private static Sprite prevSprite = null;
     static private int countdown = 0;
 
@@ -34,22 +35,23 @@ public class Bomber extends Entity {
         countdown = 0;
     }
 
+    public void setMoving(boolean moving) {
+        this.moving = moving;
+    }
+
     public void moveUp() {
         if (countdown == 0) {
             countdown = 3;
             if (Sprite.player_up == prevSprite) {
                 prevSprite = Sprite.player_up_1;
-                System.out.println(1);
             } else if (Sprite.player_up_1 == prevSprite) {
                 prevSprite = Sprite.player_up_2;
-                System.out.println(2);
             } else {
                 prevSprite = Sprite.player_up;
-                System.out.println(3);
             }
         }
         countdown--;
-
+        this.setImg(Bomber.prevSprite.getFxImage());
         if (!checkCollision(x / Sprite.SCALED_SIZE, (y - spaceStep) / Sprite.SCALED_SIZE)
                 && !checkCollision((x - 1) / Sprite.SCALED_SIZE + 1, (y - spaceStep) / Sprite.SCALED_SIZE)) {
             y -= (int) this.speed + spaceStep;
@@ -61,17 +63,14 @@ public class Bomber extends Entity {
             countdown = 3;
             if (Sprite.player_down == prevSprite) {
                 prevSprite = Sprite.player_down_1;
-                System.out.println(1);
             } else if (Sprite.player_down_1 == prevSprite) {
                 prevSprite = Sprite.player_down_2;
-                System.out.println(2);
             } else {
                 prevSprite = Sprite.player_down;
-                System.out.println(3);
             }
         }
         countdown--;
-
+        this.setImg(Bomber.prevSprite.getFxImage());
         if (!checkCollision(x / Sprite.SCALED_SIZE, (y + Sprite.SCALED_SIZE + spaceStep - 1) / Sprite.SCALED_SIZE)
                 && !checkCollision((x - 1) / Sprite.SCALED_SIZE + 1, (y + Sprite.SCALED_SIZE + spaceStep - 1) / Sprite.SCALED_SIZE)) {
             y += (int) this.speed + spaceStep;
@@ -83,17 +82,14 @@ public class Bomber extends Entity {
             countdown = 3;
             if (Sprite.player_right == prevSprite) {
                 prevSprite = Sprite.player_right_1;
-                System.out.println(1);
             } else if (Sprite.player_right_1 == prevSprite) {
                 prevSprite = Sprite.player_right_2;
-                System.out.println(2);
             } else {
                 prevSprite = Sprite.player_right;
-                System.out.println(3);
             }
         }
         countdown--;
-
+        this.setImg(Bomber.prevSprite.getFxImage());
         if (!checkCollision((x + Sprite.SCALED_SIZE + spaceStep - 1) / Sprite.SCALED_SIZE, y / Sprite.SCALED_SIZE)
                 && !checkCollision((x + Sprite.SCALED_SIZE + spaceStep - 1) / Sprite.SCALED_SIZE, (y - 1) / Sprite.SCALED_SIZE + 1)) {
             x += (int) this.speed + spaceStep;
@@ -105,17 +101,14 @@ public class Bomber extends Entity {
             countdown = 3;
             if (Sprite.player_left == prevSprite) {
                 prevSprite = Sprite.player_left_1;
-                System.out.println(1);
             } else if (Sprite.player_left_1 == prevSprite) {
                 prevSprite = Sprite.player_left_2;
-                System.out.println(2);
             } else {
                 prevSprite = Sprite.player_left;
-                System.out.println(3);
             }
         }
         countdown--;
-
+        this.setImg(Bomber.prevSprite.getFxImage());
         if (!checkCollision((x - spaceStep) / Sprite.SCALED_SIZE, y / Sprite.SCALED_SIZE)
                 && !checkCollision((x - spaceStep) / Sprite.SCALED_SIZE, (y - 1) / Sprite.SCALED_SIZE + 1)) {
             x -= (int) this.speed + spaceStep;
@@ -126,26 +119,42 @@ public class Bomber extends Entity {
         switch (ke.getCode()) {
             case UP:
             case W:
-                bomber.moveUp();
-                bomber.setImg(Bomber.prevSprite.getFxImage());
+                if(!moving) {
+                    bomber.setImg(Sprite.player_up.getFxImage());
+                    countdown = 0;
+                    prevSprite = Sprite.player_up;
+                }
+                else bomber.moveUp();
                 break;
 
             case DOWN:
             case S:
-                bomber.moveDown();
-                bomber.setImg(Bomber.prevSprite.getFxImage());
+                if(!moving) {
+                    bomber.setImg(Sprite.player_down.getFxImage());
+                    countdown = 0;
+                    prevSprite = Sprite.player_down;
+                }
+                else bomber.moveDown();
                 break;
 
             case LEFT:
             case A:
-                bomber.moveLeft();
-                bomber.setImg(Bomber.prevSprite.getFxImage());
+                if(!moving) {
+                    bomber.setImg(Sprite.player_left.getFxImage());
+                    countdown = 0;
+                    prevSprite = Sprite.player_left;
+                }
+                else bomber.moveLeft();
                 break;
 
             case RIGHT:
             case D:
-                bomber.moveRight();
-                bomber.setImg(Bomber.prevSprite.getFxImage());
+                if(!moving) {
+                    bomber.setImg(Sprite.player_right.getFxImage());
+                    countdown = 0;
+                    prevSprite = Sprite.player_right;
+                }
+                else bomber.moveRight();
                 break;
 
             case SPACE:
@@ -155,6 +164,8 @@ public class Bomber extends Entity {
                 BombermanGame.mainMap[bomber.getY() / Sprite.SCALED_SIZE][bomber.getX() / Sprite.SCALED_SIZE] = 'b';
                 System.out.println("create bomb");
                 break;
+            default:
+
         }
     }
 
