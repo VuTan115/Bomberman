@@ -1,9 +1,10 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.hasenai;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.entities.Entity;
 
-public class Portal extends Entity{
+public class Portal extends Entity {
     public Portal() {
     }
 
