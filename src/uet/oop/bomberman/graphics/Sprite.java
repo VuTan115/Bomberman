@@ -47,43 +47,43 @@ public class Sprite {
 	private SpriteSheet _sheet;
 
 	/*
-|--------------------------------------------------------------------------
-| Board sprites
-|--------------------------------------------------------------------------
- */
+	|--------------------------------------------------------------------------
+	| Board sprites
+	|--------------------------------------------------------------------------
+ 	*/
 	public static Sprite grass = new Sprite(125, 110, 25, 25);
 	public static Sprite brick = new Sprite(175, 110, 25, 25);
-	public static Sprite wall = new Sprite(125, 135, 25, 25);
-	public static Sprite portal = new Sprite(75, 110, 25, 25);
+	public static Sprite wall = new Sprite(75, 135, 25, 25);
+	public static Sprite portal = new Sprite(175, 160, 25, 25);
 
 	/*
     |--------------------------------------------------------------------------
     | Bomber Sprites
     |--------------------------------------------------------------------------
      */
-	public static Sprite player_up = new Sprite(70, 1, 16, 24);
-	public static Sprite player_down = new Sprite(69, 27, 16, 24);
-	public static Sprite player_left = new Sprite(0, 26, 16, 24);
-	public static Sprite player_right = new Sprite(103, 27, 16, 24);
+	public static Sprite player_up = new Sprite(70, 1, 16, 25);
+	public static Sprite player_down = new Sprite(69, 27, 16, 25);
+	public static Sprite player_left = new Sprite(0, 26, 16, 25);
+	public static Sprite player_right = new Sprite(103, 27, 16, 25);
 
-	public static Sprite player_up_1 = new Sprite(54, 1, 16, 24);
-	public static Sprite player_up_2 = new Sprite(86, 1, 16, 24);
+	public static Sprite player_up_1 = new Sprite(54, 1, 16, 25);
+	public static Sprite player_up_2 = new Sprite(86, 1, 16, 25);
 
-	public static Sprite player_down_1 = new Sprite(53, 27, 16, 24);
-	public static Sprite player_down_2 = new Sprite(85, 27, 16, 24);
+	public static Sprite player_down_1 = new Sprite(53, 27, 16, 25);
+	public static Sprite player_down_2 = new Sprite(85, 27, 16, 25);
 
-	public static Sprite player_left_1 = new Sprite(16, 26, 16, 24);
-	public static Sprite player_left_2 = new Sprite(33, 26, 16, 24);
+	public static Sprite player_left_1 = new Sprite(16, 26, 16, 25);
+	public static Sprite player_left_2 = new Sprite(33, 26, 16, 25);
 
-	public static Sprite player_right_1 = new Sprite(119, 27, 16, 24);
-	public static Sprite player_right_2 = new Sprite(135, 27, 16, 24);
+	public static Sprite player_right_1 = new Sprite(119, 27, 16, 25);
+	public static Sprite player_right_2 = new Sprite(135, 27, 16, 25);
 
-	public static Sprite player_dead1 = new Sprite(26, 56, 16, 24);
-	public static Sprite player_dead2 = new Sprite(46, 56, 16, 24);
-	public static Sprite player_dead3 = new Sprite(63, 56, 16, 24);
-	public static Sprite player_dead4 = new Sprite(80, 56, 16, 24);
-	public static Sprite player_dead5 = new Sprite(97, 56, 16, 24);
-	public static Sprite player_dead6 = new Sprite(115, 56, 16, 24);
+	public static Sprite player_dead1 = new Sprite(26, 56, 16, 25);
+	public static Sprite player_dead2 = new Sprite(46, 56, 16, 25);
+	public static Sprite player_dead3 = new Sprite(63, 56, 16, 25);
+	public static Sprite player_dead4 = new Sprite(80, 56, 16, 25);
+	public static Sprite player_dead5 = new Sprite(97, 56, 16, 25);
+	public static Sprite player_dead6 = new Sprite(115, 56, 16, 25);
 
 	/*
     |--------------------------------------------------------------------------
@@ -91,108 +91,130 @@ public class Sprite {
     |--------------------------------------------------------------------------
      */
 	//BALLOM
-	public static Sprite balloom_up1 = new Sprite(148, 246, 20, 25);
-	public static Sprite balloom_up2 = new Sprite(159, 249, 20, 25);
+	public static Sprite balloom_up1 = new Sprite(141, 186, 17, 25);
+	public static Sprite balloom_up2 = new Sprite(158, 186, 17, 25);
+	public static Sprite balloom_up3 = new Sprite(175, 186, 17, 25);
 
-	public static Sprite balloom_left1 = new Sprite(139, 246, 20, 25);
-	public static Sprite balloom_left2 = new Sprite(157, 246, 20, 25);
+	public static Sprite balloom_left1 = new Sprite(1, 186, 17, 25);
+	public static Sprite balloom_left2 = new Sprite(18, 186, 17, 25);
+	public static Sprite balloom_left3 = new Sprite(35, 187, 17, 25);
 
-	public static Sprite balloom_right1 = new Sprite(2, 246, 23, 20);
-	public static Sprite balloom_right2 = new Sprite(221, 246, 23, 20);
-	public static Sprite balloom_right3 = new Sprite(2, 246, 23, 20);
+	public static Sprite balloom_right1 = new Sprite(211, 187, 17, 20);
+	public static Sprite balloom_right2 = new Sprite(228, 187, 17, 20);
+	public static Sprite balloom_right3 = new Sprite(245, 186, 17, 20);
 
-	public static Sprite balloom_dead = new Sprite(273, 244, 16, 25);
+	public static Sprite balloom_dead = new Sprite(273, 186, 17, 25);
 
 	//ONEAL
-	public static Sprite oneal_left1 = new Sprite(2, 279, 20, 25);
-	public static Sprite oneal_left2 = new Sprite(22, 279, 20, 25);
-	public static Sprite oneal_left3 = new Sprite(42, 279, 20, 25);
+	public static Sprite oneal_left1 = new Sprite(2, 218, 19, 25);
+	public static Sprite oneal_left2 = new Sprite(21, 219, 19, 25);
+	public static Sprite oneal_left3 = new Sprite(40, 219, 19, 25);
 
-	public static Sprite oneal_right1 = new Sprite(211, 279, 20, 25);
-	public static Sprite oneal_right2 = new Sprite(231, 279, 20, 25);
-	public static Sprite oneal_right3 = new Sprite(251, 279, 20, 25);
+	public static Sprite oneal_right1 = new Sprite(211, 219, 19, 25);
+	public static Sprite oneal_right2 = new Sprite(230, 219, 19, 25);
+	public static Sprite oneal_right3 = new Sprite(249, 218, 19, 25);
 
-	public static Sprite oneal_dead = new Sprite(237, 277, 20, 25);
+	public static Sprite oneal_up1 = new Sprite(141, 219, 19, 25);
+	public static Sprite oneal_up2 = new Sprite(161, 219, 19, 25);
+	public static Sprite oneal_up3 = new Sprite(181, 219, 19, 25);
+
+	public static Sprite oneal_down1 = new Sprite(71, 216, 19, 25);
+	public static Sprite oneal_down2 = new Sprite(91, 217, 19, 25);
+	public static Sprite oneal_down3 = new Sprite(111, 217, 19, 25);
+
+	public static Sprite oneal_dead = new Sprite(273, 216, 19, 25);
 
 	//Doll
-	public static Sprite doll_left1 = new Sprite(2, 186, 20, 25);
-	public static Sprite doll_left2 = new Sprite(18, 187, 20, 25);
-	public static Sprite doll_left3 = new Sprite(35, 187, 20, 25);
+	public static Sprite doll_left1 = new Sprite(2, 246, 20, 25);
+	public static Sprite doll_left2 = new Sprite(25, 247, 20, 25);
 
-	public static Sprite doll_right1 = new Sprite(211, 187, 20, 25);
-	public static Sprite doll_right2 = new Sprite(228, 187, 20, 25);
-	public static Sprite doll_right3 = new Sprite(245, 187, 20, 25);
+	public static Sprite doll_right1 = new Sprite(211, 246, 20, 25);
+	public static Sprite doll_right2 = new Sprite(234, 245, 20, 25);
 
-	public static Sprite doll_dead = new Sprite(273, 186, 20, 25);
+	public static Sprite doll_up1 = new Sprite(141, 248, 20, 25);
+	public static Sprite doll_up2 = new Sprite(159, 249, 20, 25);
+
+	public static Sprite doll_down1 = new Sprite(71, 244, 20, 25);
+	public static Sprite doll_down2 = new Sprite(92, 245, 20, 25);
+
+	public static Sprite doll_dead = new Sprite(273, 244, 20, 25);
 
 	//Minvo
-	public static Sprite minvo_left1 = new Sprite(8, 5, 16, 16);
-	public static Sprite minvo_left2 = new Sprite(8, 6, 16, 16);
-	public static Sprite minvo_left3 = new Sprite(8, 7, 16, 16);
+	public static Sprite minvo_left1 = new Sprite(2, 279, 20, 25);
+	public static Sprite minvo_left2 = new Sprite(21, 279, 20, 25);
+	public static Sprite minvo_left3 = new Sprite(42, 279, 20, 25);
 
-	public static Sprite minvo_right1 = new Sprite(9, 5, 16, 16);
-	public static Sprite minvo_right2 = new Sprite(9, 6, 16, 16);
-	public static Sprite minvo_right3 = new Sprite(9, 7, 16, 16);
+	public static Sprite minvo_right1 = new Sprite(211, 279, 20, 25);
+	public static Sprite minvo_right2 = new Sprite(231, 279, 20, 25);
+	public static Sprite minvo_right3 = new Sprite(251, 279, 20, 25);
 
-	public static Sprite minvo_dead = new Sprite(8, 8, 16, 16);
+	public static Sprite minvo_up1 = new Sprite(141, 279, 20, 25);
+	public static Sprite minvo_up2 = new Sprite(159, 280, 20, 25);
+	public static Sprite minvo_up3 = new Sprite(177, 280, 20, 25);
 
-	//Kondoria
-	public static Sprite kondoria_left1 = new Sprite(10, 5, 16, 16);
-	public static Sprite kondoria_left2 = new Sprite(10, 6, 16, 16);
-	public static Sprite kondoria_left3 = new Sprite(10, 7, 16, 16);
+	public static Sprite minvo_down1 = new Sprite(71, 277, 20, 25);
+	public static Sprite minvo_down2 = new Sprite(89, 278, 20, 25);
+	public static Sprite minvo_down3 = new Sprite(107, 278, 20, 25);
 
-	public static Sprite kondoria_right1 = new Sprite(11, 5, 16, 16);
-	public static Sprite kondoria_right2 = new Sprite(11, 6, 16, 16);
-	public static Sprite kondoria_right3 = new Sprite(11, 7, 16, 16);
+	public static Sprite minvo_dead = new Sprite(273, 277, 20, 25);
 
-	public static Sprite kondoria_dead = new Sprite(10, 8, 16, 16);
+//	//Kondoria
+//	public static Sprite kondoria_left1 = new Sprite(10, 5, 16, 16);
+//	public static Sprite kondoria_left2 = new Sprite(10, 6, 16, 16);
+//	public static Sprite kondoria_left3 = new Sprite(10, 7, 16, 16);
+//
+//	public static Sprite kondoria_right1 = new Sprite(11, 5, 16, 16);
+//	public static Sprite kondoria_right2 = new Sprite(11, 6, 16, 16);
+//	public static Sprite kondoria_right3 = new Sprite(11, 7, 16, 16);
+//
+//	public static Sprite kondoria_dead = new Sprite(10, 8, 16, 16);
 
 	//ALL
-	public static Sprite mob_dead1 = new Sprite(15, 0, 16, 16);
-	public static Sprite mob_dead2 = new Sprite(15, 1, 16, 16);
-	public static Sprite mob_dead3 = new Sprite(15, 2, 16, 16);
+	public static Sprite mob_dead1 = new Sprite(103, 1, 25, 25);
+	public static Sprite mob_dead2 = new Sprite(127, 1, 25, 25);
+	public static Sprite mob_dead3 = new Sprite(157, 0, 25, 25);
 
 	/*
     |--------------------------------------------------------------------------
     | Bomb Sprites
     |--------------------------------------------------------------------------
      */
-	public static Sprite bomb = new Sprite(77, 162, 21, 21);
-	public static Sprite bomb_1 = new Sprite(103, 162, 19, 20);
-	public static Sprite bomb_2 = new Sprite(131, 162, 14, 17);
+	public static Sprite bomb = new Sprite(75, 160, 25, 25);
+	public static Sprite bomb_1 = new Sprite(100, 160, 25, 25);
+	public static Sprite bomb_2 = new Sprite(125, 160, 25, 25);
 
 	/*
     |--------------------------------------------------------------------------
     | FlameSegment Sprites
     |--------------------------------------------------------------------------
      */
-	public static Sprite bomb_exploded = new Sprite(0, 4, 16, 16);
-	public static Sprite bomb_exploded1 = new Sprite(0, 5, 16, 16);
-	public static Sprite bomb_exploded2 = new Sprite(0, 6, 16, 16);
+	public static Sprite bomb_exploded = new Sprite(200, 110, 25, 25);
+	public static Sprite bomb_exploded1 = new Sprite(200, 135, 25, 25);
+	public static Sprite bomb_exploded2 = new Sprite(200, 160, 25, 25);
 
-	public static Sprite explosion_vertical = new Sprite(1, 5, 16, 16);
-	public static Sprite explosion_vertical1 = new Sprite(2, 5, 16, 16);
-	public static Sprite explosion_vertical2 = new Sprite(3, 5, 16, 16);
+	public static Sprite explosion_vertical = new Sprite(350, 135, 25, 25);
+	public static Sprite explosion_vertical1 = new Sprite(325, 135, 25, 25);
+	public static Sprite explosion_vertical2 = new Sprite(300, 135, 25, 25);
 
-	public static Sprite explosion_horizontal = new Sprite(1, 7, 16, 16);
-	public static Sprite explosion_horizontal1 = new Sprite(1, 8, 16, 16);
-	public static Sprite explosion_horizontal2 = new Sprite(1, 9, 16, 16);
+	public static Sprite explosion_horizontal = new Sprite(250, 110, 25, 25);
+	public static Sprite explosion_horizontal1 = new Sprite(250, 135, 25, 25);
+	public static Sprite explosion_horizontal2 = new Sprite(250, 160, 25, 25);
 
-	public static Sprite explosion_horizontal_left_last = new Sprite(0, 7, 16, 16);
-	/*public static Sprite explosion_horizontal_left_last1 = new Sprite(DEFAULT_SIZE, 0, 8, 16, 16);
-	public static Sprite explosion_horizontal_left_last2 = new Sprite(DEFAULT_SIZE, 0, 9, 16, 16);
+	public static Sprite explosion_horizontal_left_last = new Sprite(225, 110, 25, 25);
+	public static Sprite explosion_horizontal_left_last1 = new Sprite(225, 135, 25, 25);
+	public static Sprite explosion_horizontal_left_last2 = new Sprite(225, 160, 25, 25);
 
-	public static Sprite explosion_horizontal_right_last = new Sprite(DEFAULT_SIZE, 2, 7, 16, 16);
-	public static Sprite explosion_horizontal_right_last1 = new Sprite(DEFAULT_SIZE, 2, 8, 16, 16);
-	public static Sprite explosion_horizontal_right_last2 = new Sprite(DEFAULT_SIZE, 2, 9, 16, 16);
+	public static Sprite explosion_horizontal_right_last = new Sprite(275, 110, 25, 25);
+	public static Sprite explosion_horizontal_right_last1 = new Sprite(275, 135, 25, 25);
+	public static Sprite explosion_horizontal_right_last2 = new Sprite(275, 160, 25, 25);
 
-	public static Sprite explosion_vertical_top_last = new Sprite(DEFAULT_SIZE, 1, 4, 16, 16);
-	public static Sprite explosion_vertical_top_last1 = new Sprite(DEFAULT_SIZE, 2, 4, 16, 16);
-	public static Sprite explosion_vertical_top_last2 = new Sprite(DEFAULT_SIZE, 3, 4, 16, 16);
+	public static Sprite explosion_vertical_top_last = new Sprite(350, 110, 25, 25);
+	public static Sprite explosion_vertical_top_last1 = new Sprite(325, 110, 25, 25);
+	public static Sprite explosion_vertical_top_last2 = new Sprite(300, 110, 25, 25);
 
-	public static Sprite explosion_vertical_down_last = new Sprite(DEFAULT_SIZE, 1, 6, 16, 16);
-	public static Sprite explosion_vertical_down_last1 = new Sprite(DEFAULT_SIZE, 2, 6, 16, 16);
-	public static Sprite explosion_vertical_down_last2 = new Sprite(DEFAULT_SIZE, 3, 6, 16, 16);*/
+	public static Sprite explosion_vertical_down_last = new Sprite(350, 160, 25, 25);
+	public static Sprite explosion_vertical_down_last1 = new Sprite(325, 160, 25, 25);
+	public static Sprite explosion_vertical_down_last2 = new Sprite(300, 160, 25, 25);
 
 	/*
     |--------------------------------------------------------------------------
@@ -217,13 +239,13 @@ public class Sprite {
 	| Powerups
 	|--------------------------------------------------------------------------
 	 */
-	public static Sprite powerup_bombs = new Sprite(0, 110, 25, 25);
-	public static Sprite powerup_flames = new Sprite(50, 161, 25, 25);
-	public static Sprite powerup_speed = new Sprite(0, 161, 25, 25);
-	public static Sprite powerup_wallpass = new Sprite(DEFAULT_SIZE, 3, 10, SpriteSheet.tiles, 16, 16);
-	public static Sprite powerup_detonator = new Sprite(DEFAULT_SIZE, 4, 10, SpriteSheet.tiles, 16, 16);
-	public static Sprite powerup_bombpass = new Sprite(DEFAULT_SIZE, 5, 10, SpriteSheet.tiles, 16, 16);
-	public static Sprite powerup_flamepass = new Sprite(DEFAULT_SIZE, 6, 10, SpriteSheet.tiles, 16, 16);
+	public static Sprite powerup_bombs = new Sprite(350, 215, 25, 25);
+	public static Sprite powerup_flames = new Sprite(375, 190, 25, 25);
+	public static Sprite powerup_speed = new Sprite(325, 215, 25, 25);
+	public static Sprite powerup_wallpass = new Sprite(300, 190, 25, 25);
+	public static Sprite powerup_detonator = new Sprite(325, 190, 25, 25);
+	public static Sprite powerup_bombpass = new Sprite(350, 190, 25, 25);
+	public static Sprite powerup_flamepass = new Sprite(300,215,25,25);
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet, int rw, int rh) {
 		SIZE = size;

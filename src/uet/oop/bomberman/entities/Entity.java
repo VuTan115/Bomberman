@@ -17,6 +17,8 @@ public abstract class Entity {
     //Tọa độ Y tính từ góc trái trên trong Canvas
     protected int y;
 
+    long time30 = 0, time500 = 0;
+
     public int getX() {
         return x;
     }
@@ -50,9 +52,28 @@ public abstract class Entity {
         this.img = img;
     }
 
-
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);
     }
-    public abstract void update();
+
+    public void fixedUpdate30 () {
+
+    }
+
+    public void fixedUpadte500() {
+
+    }
+
+    public void update() {
+        long time = System.currentTimeMillis();
+
+        if (time30 != time / 30) {
+            time30 = time / 30;
+            fixedUpdate30();
+        }
+        if (time500 != time / 500) {
+            time500 = time / 500;
+            fixedUpadte500();
+        }
+    }
 }

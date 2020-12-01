@@ -5,11 +5,7 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bom extends Entity {
-    private long initialTime;
-    private long duration;
-    private long liveTime;
-
-    private long timeToExplode;
+    Sprite prevSprite = Sprite.bomb;
 
     public Bom() {
     }
@@ -17,14 +13,18 @@ public class Bom extends Entity {
     public Bom(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
         this.setImg(Sprite.bomb.getFxImage());
-        this.initialTime=System.nanoTime();
     }
 
     @Override
     public void update() {
-        timeToExplode = System.nanoTime() - initialTime;
-        if (timeToExplode > 3000) {
-
+        if (prevSprite == Sprite.bomb) {
+            prevSprite = Sprite.bomb_1;
+        } else if (prevSprite == Sprite.bomb_1) {
+            img = Sprite.bomb_2.getFxImage();
+            prevSprite = Sprite.bomb_2;
+        } else {
+            prevSprite = Sprite.bomb;
         }
+        img = prevSprite.getFxImage();
     }
 }

@@ -7,11 +7,13 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.mobile.*;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -26,7 +28,6 @@ public class BombermanGame extends Application {
 
     public static char[][] mainMap;
 
-    private Bom bom;
     private GraphicsContext gc;
     private Canvas canvas;
     private Bomber bomber;
@@ -69,13 +70,10 @@ public class BombermanGame extends Application {
         bomber = new Bomber(1, 1, Sprite.player_right.getFxImage());
 
         scene.setOnKeyPressed(ke -> {
-            bomber.setMoving(true);
-            bomber.undou(ke, bomber);
+            bomber.initKeyCode(ke);
         });
-
         scene.setOnKeyReleased(ke -> {
-            bomber.setMoving(false);
-            bomber.undou(ke, bomber);
+            bomber.stopped(ke);
         });
     }
 
@@ -109,18 +107,21 @@ public class BombermanGame extends Application {
                     stillObjects.add(object);
                     break;
                 }
+
                 case '*': {
                     object = new Brick(i, height, Sprite.brick.getFxImage());
                     stillObjects.add(object);
                     break;
                 }
+
                 case 'x': {
-                    object = new Portal(i, height, Sprite.portal.getFxImage());
+                    object = new Portal(i, height, Sprite.brick.getFxImage());
                     stillObjects.add(object);
                     break;
                 }
+
                 case '1': {
-                    object = new Balloon(i, height, Sprite.balloom_left1.getFxImage());
+                    object = new Balloon(i, height);
                     dynamicObject.add(object);
                     break;
                 }
@@ -130,19 +131,13 @@ public class BombermanGame extends Application {
                     dynamicObject.add(object);
                     break;
                 }
-                case 'f': {
-                    object = new Flame(i, height, Sprite.powerup_flames.getFxImage());
-                    dynamicObject.add(object);
-                    break;
-                }
+
                 case 's': {
-                    object = new SpeedItem(i, height, Sprite.powerup_speed.getFxImage());
+                    object = new SpeedItem(i, height, Sprite.brick.getFxImage());
                     stillObjects.add(object);
                     break;
                 }
-                default:
-                    object = new Grass(i, height, Sprite.grass.getFxImage());
-                    stillObjects.add(object);
+
             }
         }
     }
@@ -170,8 +165,8 @@ public class BombermanGame extends Application {
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         grass.forEach(g -> g.render(gc));
-        stillObjects.forEach(g -> g.render(gc));
         dynamicObject.forEach(g -> g.render(gc));
+        stillObjects.forEach(g -> g.render(gc));
         bomber.render(gc);
     }
 }
