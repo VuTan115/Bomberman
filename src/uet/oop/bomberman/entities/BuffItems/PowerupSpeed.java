@@ -4,13 +4,13 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 
-public class SpeedItem extends Entity {
+public class PowerupSpeed extends Entity {
     private boolean bombed = false;
 
-    public SpeedItem() {
+    public PowerupSpeed() {
     }
 
-    public SpeedItem(int xUnit, int yUnit, Image img) {
+    public PowerupSpeed(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
         BombermanGame.mainMap[yUnit][xUnit] = 'b';
     }

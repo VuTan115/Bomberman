@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.Player.Bomber;
-import uet.oop.bomberman.entities.BuffItems.SpeedItem;
+import uet.oop.bomberman.entities.BuffItems.PowerupSpeed;
 import uet.oop.bomberman.entities.hasenai.Brick;
 import uet.oop.bomberman.entities.hasenai.Grass;
 import uet.oop.bomberman.entities.hasenai.Portal;
@@ -138,7 +138,7 @@ public class BombermanGame extends Application {
                 }
 
                 case 's': {
-                    object = new SpeedItem(i, height, Sprite.brick.getFxImage());
+                    object = new PowerupSpeed(i, height, Sprite.brick.getFxImage());
                     stillObjects.add(object);
                     break;
                 }
