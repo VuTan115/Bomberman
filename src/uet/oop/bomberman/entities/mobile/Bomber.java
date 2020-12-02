@@ -18,6 +18,7 @@ public class Bomber extends Entity {
 
     private int justBombed = 0;
     private Sprite prevSprite = null;
+    private List<Sprite> deadSprites = new ArrayList<>();
 
     private List<Bom> bombs = new ArrayList<>();
 
@@ -30,6 +31,12 @@ public class Bomber extends Entity {
         x3 = x1 - 3;
         y3 = y2;
         way = (int) (this.speed * spaceStep);
+        deadSprites.add(Sprite.player_dead6);
+        deadSprites.add(Sprite.player_dead5);
+        deadSprites.add(Sprite.player_dead4);
+        deadSprites.add(Sprite.player_dead3);
+        deadSprites.add(Sprite.player_dead2);
+        deadSprites.add(Sprite.player_dead1);
     }
 
     public void moveUp() {
@@ -156,6 +163,22 @@ public class Bomber extends Entity {
         }
     }
 
+    @Override
+    protected boolean inTheArea(Entity entity) {
+        int a1 = entity.getX();
+        int a2 = entity.getY();
+        int b1 = (int) (a1 + img.getWidth());
+        int b2 = (int) (a2 + img.getHeight());
+        return (a1 <= x && x <= b1
+                && a2 <= y + 30 && y + 30 <= b2)
+                || (a1 <= x1 && x1 <= b1
+                && a2 <= y1 + 30 && y1 + 30 <= b2)
+                || (a1 <= x2 && x2 <= b1
+                && a2 <= y2 && y2 <= b2)
+                || (a1 <= x3 && x3 <= b1
+                && a2 <= y3 && y3 <= b2);
+    }
+
     public void stopped(KeyEvent ke) {
         keyCodeUsing.remove(ke.getCode());
         if (keyCodeUsing.isEmpty()) {
@@ -202,23 +225,17 @@ public class Bomber extends Entity {
             if (BombermanGame.mainMap[yUnit][xUnit] == ' ') {
                 Bom bom = new Bom(xUnit, yUnit, Sprite.bomb.getFxImage());
                 bombs.add(bom);
-                justBombed++;
+                BombermanGame.mainMap[yUnit][xUnit] = 'b';
             }
         }
     }
 
     public void undou() {
-        if (justBombed >= 1) {
-            int minimum = 0;
-            for (int i = 1; i <= justBombed; i++) {
-                if (!inTheArea(bombs.get(bombs.size() - i))) {
-                    minimum++;
-                    BombermanGame.mainMap[toU(bombs.get(i).getY() + 10)][toU(bombs.get(i).getX() + 10)] = 'b';
-                }
-            }
-            justBombed -= minimum;
+        boolean boo = false;
+        if (!bombs.isEmpty()) boo = inTheArea(bombs.get(bombs.size() - 1));
+        if (boo) {
+            BombermanGame.mainMap[toU(bombs.get(bombs.size() - 1).getY())][toU(bombs.get(bombs.size() - 1).getX())] = ' ';
         }
-
         for (int i = keyCodeUsing.size() - 1; i >= 0; i--)
             switch (keyCodeUsing.get(i)) {
                 case UP:
@@ -240,31 +257,48 @@ public class Bomber extends Entity {
                 case D:
                     this.moveRight();
                     break;
-
-                default:
-
             }
+        if (boo) {
+            BombermanGame.mainMap[toU(bombs.get(bombs.size() - 1).getY())][toU(bombs.get(bombs.size() - 1).getX())] = 'b';
+        }
     }
 
     @Override
     public boolean checkCollision(int nextStepX, int nextStepY) {
-        char temp = BombermanGame.mainMap[nextStepY][nextStepX];
-        return temp != ' ';
+        if (BombermanGame.mainMap[nextStepY][nextStepX] == '1'
+        || BombermanGame.mainMap[nextStepY][nextStepX] == '2') dead = true;
+        return BombermanGame.mainMap[nextStepY][nextStepX] != ' ';
     }
 
     @Override
     public void fixedUpdate30() {
-        undou();
+        if (!dead) undou();
     }
 
     @Override
     public void fixedUpdate500() {
-        bombs.forEach(Entity::update);
+        if (!dead) bombs.forEach(Entity::update);
+        else {
+            playerDead();
+        }
     }
 
     @Override
     public void render(GraphicsContext gc) {
         bombs.forEach(g -> g.render(gc));
         super.render(gc);
+    }
+
+    private void playerDead() {
+        if (deadSprites.isEmpty()) {
+            try {
+                Thread.sleep(1000);
+                System.exit(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        setImg(deadSprites.get(deadSprites.size() - 1).getFxImage());
+        deadSprites.remove(deadSprites.get(deadSprites.size() - 1));
     }
 }

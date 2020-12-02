@@ -11,6 +11,9 @@ public abstract class Entity {
     public Entity() {
     }
 
+    protected char c;
+    protected static boolean dead = false;
+
     //Tọa độ X tính từ góc trái trên trong Canvas
     protected int x, x1, x2, x3;
 
@@ -21,7 +24,7 @@ public abstract class Entity {
     protected int direction = 3;
     protected int way = 4;
 
-    Random random = new Random();
+    protected Random random = new Random();
 
     long time30 = 0, time500 = 0;
 
@@ -65,8 +68,8 @@ public abstract class Entity {
     protected boolean inTheArea(Entity entity) {
         int a1 = entity.getX();
         int a2 = entity.getY();
-        int b1 = a1 + Sprite.SCALED_SIZE;
-        int b2 = a2 + Sprite.SCALED_SIZE;
+        int b1 = (int) (a1 + img.getWidth());
+        int b2 = (int) (a2 + img.getHeight());
         return (a1 <= x && x <= b1
                 && a2 <= y && y <= b2)
                 || (a1 <= x1 && x1 <= b1
@@ -78,9 +81,8 @@ public abstract class Entity {
     }
 
     public boolean checkCollision(int nextStepX, int nextStepY) {
-        return BombermanGame.mainMap[nextStepX][nextStepY] == '#'
-                || BombermanGame.mainMap[nextStepX][nextStepY] == '*'
-                || BombermanGame.mainMap[nextStepX][nextStepY] == 'b';
+        return BombermanGame.mainMap[nextStepX][nextStepY] != ' '
+                && BombermanGame.mainMap[nextStepX][nextStepY] != c;
     }
 
     protected void doRandom() {
@@ -109,7 +111,6 @@ public abstract class Entity {
     }
 
     public void fixedUpdate500() {
-        doRandom();
     }
 
     public void update() {
