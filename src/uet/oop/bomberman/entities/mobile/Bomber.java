@@ -14,14 +14,10 @@ public class Bomber extends Entity {
     private double speed = 1;
     private int spaceStep = 5;
     private int way;
-    protected boolean bomblimited = false;
-    private long timePlayer = 0;
-    private long timeBombs = 0;
     private List<KeyCode> keyCodeUsing = new ArrayList<>();
 
-    private boolean justBombed = false;
+    private int justBombed = 0;
     private Sprite prevSprite = null;
-    static private int countdown = 0;
 
     private List<Bom> bombs = new ArrayList<>();
 
@@ -206,34 +202,23 @@ public class Bomber extends Entity {
             if (BombermanGame.mainMap[yUnit][xUnit] == ' ') {
                 Bom bom = new Bom(xUnit, yUnit, Sprite.bomb.getFxImage());
                 bombs.add(bom);
-                bomblimited = true;
-                justBombed = true;
+                justBombed++;
             }
         }
     }
 
-    private boolean inTheErea() {
-        int a1 = bombs.get(bombs.size() - 1).getX();
-        int a2 = bombs.get(bombs.size() - 1).getY();
-        int b1 = a1 + Sprite.SCALED_SIZE;
-        int b2 = a2 + Sprite.SCALED_SIZE;
-        return (a1 <= x && x <= b1
-                && a2 <= y && y <= b2)
-                || (a1 <= x1 && x1 <= b1
-                && a2 <= y1 && y1 <= b2)
-                || (a1 <= x2 && x2 <= b1
-                && a2 <= y2 && y2 <= b2)
-                || (a1 <= x3 && x3 <= b1
-                && a2 <= y3 && y3 <= b2);
-    }
-
     public void undou() {
-        if (justBombed) {
-            justBombed = inTheErea();
-            if (!justBombed) BombermanGame.mainMap[bombs.get(bombs.size() - 1).getY() / Sprite.SCALED_SIZE]
-                    [bombs.get(bombs.size() - 1).getX() / Sprite.SCALED_SIZE] = 'b';
-
+        if (justBombed >= 1) {
+            int minimum = 0;
+            for (int i = 1; i <= justBombed; i++) {
+                if (!inTheArea(bombs.get(bombs.size() - i))) {
+                    minimum++;
+                    BombermanGame.mainMap[toU(bombs.get(i).getY() + 10)][toU(bombs.get(i).getX() + 10)] = 'b';
+                }
+            }
+            justBombed -= minimum;
         }
+
         for (int i = keyCodeUsing.size() - 1; i >= 0; i--)
             switch (keyCodeUsing.get(i)) {
                 case UP:
@@ -273,7 +258,7 @@ public class Bomber extends Entity {
     }
 
     @Override
-    public void fixedUpadte500() {
+    public void fixedUpdate500() {
         bombs.forEach(Entity::update);
     }
 

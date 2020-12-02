@@ -5,8 +5,6 @@ import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
-import java.util.Random;
-
 public class Balloon extends Entity {
     // 0:up   1:down   2:left   3: right;
     Sprite[][] sprites = new Sprite[4][3];
@@ -32,6 +30,12 @@ public class Balloon extends Entity {
         sprites[3][0] = Sprite.balloom_right1;
         sprites[3][1] = Sprite.balloom_right2;
         sprites[3][2] = Sprite.balloom_right3;
+    }
+
+    @Override
+    protected void doRandom() {
+        super.doRandom();
+        img = sprites[direction][currentColm].getFxImage();
     }
 
     @Override
@@ -87,14 +91,13 @@ public class Balloon extends Entity {
                 x3 = x1;
                 break;
         }
-        if (currentColm == 2) currentColm = 1;
-        else currentColm++;
-        img = sprites[direction][currentColm].getFxImage();
+        if (countdown == 0) {
+            if (currentColm == 2) currentColm = 1;
+            else currentColm++;
+            img = sprites[direction][currentColm].getFxImage();
+            countdown = 3;
+        } else countdown--;
         BombermanGame.mainMap[toU((y + y2) / 2)][toU((x + x1) / 2)] = '1';
     }
 
-    @Override
-    public void fixedUpadte500() {
-        super.fixedUpadte500();
-    }
 }

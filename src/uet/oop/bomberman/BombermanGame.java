@@ -46,6 +46,7 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+        bomber = new Bomber(1, 1, Sprite.player_right.getFxImage());
         createMap();
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -68,7 +69,6 @@ public class BombermanGame extends Application {
         };
 
         timer.start();
-        bomber = new Bomber(1, 1, Sprite.player_right.getFxImage());
 
         scene.setOnKeyPressed(ke -> {
             bomber.initKeyCode(ke);

@@ -1,10 +1,7 @@
 package uet.oop.bomberman.entities;
 
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -20,6 +17,7 @@ public abstract class Entity {
     //Tọa độ Y tính từ góc trái trên trong Canvas
     protected int y, y1, y2, y3, y4;
 
+    protected int countdown = 0;
     protected int direction = 3;
     protected int way = 4;
 
@@ -64,9 +62,25 @@ public abstract class Entity {
         gc.drawImage(img, x, y);
     }
 
+    protected boolean inTheArea(Entity entity) {
+        int a1 = entity.getX();
+        int a2 = entity.getY();
+        int b1 = a1 + Sprite.SCALED_SIZE;
+        int b2 = a2 + Sprite.SCALED_SIZE;
+        return (a1 <= x && x <= b1
+                && a2 <= y && y <= b2)
+                || (a1 <= x1 && x1 <= b1
+                && a2 <= y1 && y1 <= b2)
+                || (a1 <= x2 && x2 <= b1
+                && a2 <= y2 && y2 <= b2)
+                || (a1 <= x3 && x3 <= b1
+                && a2 <= y3 && y3 <= b2);
+    }
+
     public boolean checkCollision(int nextStepX, int nextStepY) {
         return BombermanGame.mainMap[nextStepX][nextStepY] == '#'
-                || BombermanGame.mainMap[nextStepX][nextStepY] == '*';
+                || BombermanGame.mainMap[nextStepX][nextStepY] == '*'
+                || BombermanGame.mainMap[nextStepX][nextStepY] == 'b';
     }
 
     protected void doRandom() {
@@ -94,7 +108,7 @@ public abstract class Entity {
     public void fixedUpdate30() {
     }
 
-    public void fixedUpadte500() {
+    public void fixedUpdate500() {
         doRandom();
     }
 
@@ -107,7 +121,7 @@ public abstract class Entity {
         }
         if (time500 != time / 500) {
             time500 = time / 500;
-            fixedUpadte500();
+            fixedUpdate500();
         }
     }
 }
