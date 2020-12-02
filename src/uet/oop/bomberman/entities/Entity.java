@@ -8,6 +8,8 @@ import javafx.scene.paint.Color;
 import uet.oop.bomberman.graphics.Sprite;
 
 public abstract class Entity {
+    private int diretion;
+    Sprite[][] sprites;
     public Entity() {
     }
 

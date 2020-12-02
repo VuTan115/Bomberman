@@ -14,13 +14,13 @@ public class Balloon  extends Entity {
     public Balloon(int xUnit, int yUnit) {
         sprites[0][0] = Sprite.balloom_up1;
         sprites[0][1] = Sprite.balloom_up2;
-/*        sprites[0][2] = Sprite.balloom_up3;
+        sprites[0][2] = Sprite.balloom_up3;
         sprites[1][0] = Sprite.balloom_down1;
         sprites[1][1] = Sprite.balloom_down2;
         sprites[1][2] = Sprite.balloom_down3;
         sprites[2][0] = Sprite.balloom_left1;
         sprites[2][1] = Sprite.balloom_left2;
-        sprites[2][2] = Sprite.balloom_left3;*/
+        sprites[2][2] = Sprite.balloom_left3;
         sprites[3][0] = Sprite.balloom_right1;
         sprites[3][1] = Sprite.balloom_right2;
         sprites[3][2] = Sprite.balloom_right3;

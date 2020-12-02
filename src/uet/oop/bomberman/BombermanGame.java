@@ -45,6 +45,7 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+        bomber = new Bomber(1, 1, Sprite.player_right.getFxImage());
         createMap();
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -67,7 +68,7 @@ public class BombermanGame extends Application {
         };
 
         timer.start();
-        bomber = new Bomber(1, 1, Sprite.player_right.getFxImage());
+
 
         scene.setOnKeyPressed(ke -> {
             bomber.initKeyCode(ke);
@@ -121,7 +122,7 @@ public class BombermanGame extends Application {
                 }
 
                 case '1': {
-                    object = new Balloon(i, height);
+                    object = new Balloon(i, height, Sprite.balloom_left1.getFxImage());
                     dynamicObject.add(object);
                     break;
                 }
@@ -129,6 +130,14 @@ public class BombermanGame extends Application {
                 case '2': {
                     object = new Oneal(i, height, Sprite.oneal_left1.getFxImage());
                     dynamicObject.add(object);
+                    break;
+                }
+
+                case '3': {
+                    object = new Doll(i, height, Sprite.doll_left1.getFxImage());
+                    dynamicObject.add(object);
+                    Doll doll = (Doll) object;
+                    doll.setBomber(bomber);
                     break;
                 }
 
@@ -159,7 +168,9 @@ public class BombermanGame extends Application {
 
     public void update() {
         entities.forEach(Entity::update);
+        dynamicObject.forEach(Entity::update);
         bomber.update();
+
     }
 
     public void render() {

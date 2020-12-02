@@ -95,6 +95,10 @@ public class Sprite {
 	public static Sprite balloom_up2 = new Sprite(158, 186, 17, 25);
 	public static Sprite balloom_up3 = new Sprite(175, 186, 17, 25);
 
+	public static Sprite balloom_down1 = new Sprite(71, 186, 17, 25);
+	public static Sprite balloom_down2 = new Sprite(88, 186, 17, 25);
+	public static Sprite balloom_down3 = new Sprite(105, 186, 17, 25);
+
 	public static Sprite balloom_left1 = new Sprite(1, 186, 17, 25);
 	public static Sprite balloom_left2 = new Sprite(18, 186, 17, 25);
 	public static Sprite balloom_left3 = new Sprite(35, 187, 17, 25);
