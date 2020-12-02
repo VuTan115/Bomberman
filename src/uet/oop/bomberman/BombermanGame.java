@@ -121,13 +121,13 @@ public class BombermanGame extends Application {
                 }
 
                 case '1': {
-                    object = new Balloon(i, height);
+                    object = new Balloon(i, height, Sprite.balloom_right1.getFxImage());
                     dynamicObject.add(object);
                     break;
                 }
 
                 case '2': {
-                    object = new Oneal(i, height, Sprite.oneal_left1.getFxImage());
+                    object = new Oneal(i, height, Sprite.oneal_down1.getFxImage());
                     dynamicObject.add(object);
                     break;
                 }
@@ -159,6 +159,7 @@ public class BombermanGame extends Application {
 
     public void update() {
         entities.forEach(Entity::update);
+        dynamicObject.forEach(Entity::update);
         bomber.update();
     }
 

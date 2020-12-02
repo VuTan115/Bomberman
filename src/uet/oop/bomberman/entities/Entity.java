@@ -12,10 +12,10 @@ public abstract class Entity {
     }
 
     //Tọa độ X tính từ góc trái trên trong Canvas
-    protected int x;
+    protected int x, x1, x2, x3;
 
     //Tọa độ Y tính từ góc trái trên trong Canvas
-    protected int y;
+    protected int y, y1, y2, y3, y4;
 
     long time30 = 0, time500 = 0;
 
@@ -54,6 +54,10 @@ public abstract class Entity {
 
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);
+    }
+
+    public boolean checkCollision(int nextStepX, int nextStepY) {
+        return true;
     }
 
     public void fixedUpdate30 () {

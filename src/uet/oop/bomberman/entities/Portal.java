@@ -9,7 +9,7 @@ public class Portal extends Entity{
 
     public Portal(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
-        BombermanGame.mainMap[yUnit][xUnit] = 'b';
+        BombermanGame.mainMap[yUnit][xUnit] = '*';
     }
 
     @Override

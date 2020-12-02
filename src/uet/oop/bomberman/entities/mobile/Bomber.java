@@ -14,7 +14,7 @@ public class Bomber extends Entity {
     private double speed = 1;
     private int spaceStep = 5;
     private int way;
-    protected boolean bomblimited=false;
+    protected boolean bomblimited = false;
     private long timePlayer = 0;
     private long timeBombs = 0;
     private List<KeyCode> keyCodeUsing = new ArrayList<>();
@@ -22,8 +22,6 @@ public class Bomber extends Entity {
     private boolean justBombed = false;
     private Sprite prevSprite = null;
     static private int countdown = 0;
-
-    private int x1, y1, x2, y2, x3, y3;
 
     private List<Bom> bombs = new ArrayList<>();
 
@@ -207,12 +205,8 @@ public class Bomber extends Entity {
             int yUnit = ((y2 + y) / 2) / Sprite.SCALED_SIZE;
             if (BombermanGame.mainMap[yUnit][xUnit] == ' ') {
                 Bom bom = new Bom(xUnit, yUnit, Sprite.bomb.getFxImage());
-                if(bomblimited==false) {
-                    bombs.add(bom);
-                    bomblimited=true;
-                }else{
-                    System.out.println("Bomb place limited!");
-                }
+                bombs.add(bom);
+                bomblimited = true;
                 justBombed = true;
             }
         }
@@ -234,10 +228,10 @@ public class Bomber extends Entity {
     }
 
     public void undou() {
-        if(justBombed) {
-                justBombed = inTheErea();
-                if (!justBombed) BombermanGame.mainMap[bombs.get(bombs.size() - 1).getY() / Sprite.SCALED_SIZE]
-                        [bombs.get(bombs.size() - 1).getX() / Sprite.SCALED_SIZE] = 'b';
+        if (justBombed) {
+            justBombed = inTheErea();
+            if (!justBombed) BombermanGame.mainMap[bombs.get(bombs.size() - 1).getY() / Sprite.SCALED_SIZE]
+                    [bombs.get(bombs.size() - 1).getX() / Sprite.SCALED_SIZE] = 'b';
 
         }
         for (int i = keyCodeUsing.size() - 1; i >= 0; i--)
