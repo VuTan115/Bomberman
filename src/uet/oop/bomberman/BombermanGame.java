@@ -33,12 +33,13 @@ public class BombermanGame extends Application {
     private Bomber bomber;
 
     private List<Entity> entities = new ArrayList<>();
-    private List<Entity> dynamicObject= new ArrayList<>();
+    private List<Entity> dynamicObject = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
     private List<Grass> grass = new ArrayList<>();
 
-    public BombermanGame()  {
+    public BombermanGame() {
     }
+
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
@@ -85,7 +86,7 @@ public class BombermanGame extends Application {
             size += str.charAt(i);
             if (str.charAt(i) == ' ' || i == len - 1) {
                 mapSize.add(size.trim());
-                   size = "";
+                size = "";
             }
         }
         LEVEL = Integer.parseInt(mapSize.get(0));//1

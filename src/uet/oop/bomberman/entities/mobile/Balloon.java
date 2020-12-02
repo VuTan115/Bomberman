@@ -9,11 +9,8 @@ import java.util.Random;
 
 public class Balloon extends Entity {
     // 0:up   1:down   2:left   3: right;
-    private int direction = 3;
     Sprite[][] sprites = new Sprite[4][3];
-    private int way = 4;
     private int currentColm = 0;
-    Random random = new Random();
 
     public Balloon(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
@@ -35,34 +32,6 @@ public class Balloon extends Entity {
         sprites[3][0] = Sprite.balloom_right1;
         sprites[3][1] = Sprite.balloom_right2;
         sprites[3][2] = Sprite.balloom_right3;
-    }
-
-    int toU(int k) {
-        return Math.round(k / Sprite.SCALED_SIZE);
-    }
-
-    @Override
-    public boolean checkCollision(int nextStepX, int nextStepY) {
-        return BombermanGame.mainMap[nextStepX][nextStepY] == '#'
-                || BombermanGame.mainMap[nextStepX][nextStepY] == '*';
-    }
-
-    private void doRandom() {
-        int rdm = random.nextInt(4);
-        while (true){
-            if (rdm == 0 && !checkCollision(toU(y - way), toU(x))
-                    && !checkCollision(toU(y - way), toU(x1))) break;
-            else if (rdm == 1 && !checkCollision(toU(y2 + way), toU(x2))
-                    && !checkCollision(toU(y2 + way), toU(x3))) break;
-            else if (rdm == 2 && !checkCollision(toU(y), toU(x - way))
-                    && !checkCollision(toU(y2), toU(x - way))) break;
-            else if (rdm == 3 && !checkCollision(toU(y), toU(x1 + way))
-                    && !checkCollision(toU(y2), toU(x1 + way))) break;
-            rdm = random.nextInt(4);
-        }
-        if (direction != rdm) {
-            direction = rdm;
-        }
     }
 
     @Override
@@ -118,11 +87,14 @@ public class Balloon extends Entity {
                 x3 = x1;
                 break;
         }
+        if (currentColm == 2) currentColm = 1;
+        else currentColm++;
+        img = sprites[direction][currentColm].getFxImage();
         BombermanGame.mainMap[toU((y + y2) / 2)][toU((x + x1) / 2)] = '1';
     }
 
     @Override
     public void fixedUpadte500() {
-        doRandom();
+        super.fixedUpadte500();
     }
 }

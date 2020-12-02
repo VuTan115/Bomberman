@@ -261,6 +261,7 @@ public class Bomber extends Entity {
             }
     }
 
+    @Override
     public boolean checkCollision(int nextStepX, int nextStepY) {
         char temp = BombermanGame.mainMap[nextStepY][nextStepX];
         return temp != ' ';
