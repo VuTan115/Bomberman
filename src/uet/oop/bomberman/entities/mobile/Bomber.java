@@ -285,6 +285,7 @@ public class Bomber extends Entity {
 
     @Override
     public void render(GraphicsContext gc) {
+        checkCollision(toU((x + x1) / 2), toU((y + y2) / 2));
         bombs.forEach(g -> g.render(gc));
         super.render(gc);
     }
