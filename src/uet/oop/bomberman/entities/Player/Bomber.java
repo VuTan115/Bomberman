@@ -6,6 +6,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.Sound;
 import uet.oop.bomberman.entities.mobile.Bomb.Bom;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bomber extends Entity {
-    public   static int  count =0;
+    public static int count = 0;
     private double speed = 1;
     private int spaceStep = 5;
     private int way;
@@ -23,13 +24,14 @@ public class Bomber extends Entity {
     private List<KeyCode> keyCodeUsing = new ArrayList<>();
 
     private boolean justBombed = false;
-    protected Sprite[] flame;
+    //protected Sprite[] flame;
     private Sprite prevSprite = null;
     static private int countdown = 0;
 
     private int x1, y1, x2, y2, x3, y3;
 
     public static List<Bom> bombs = new ArrayList<>();
+    public static List<Entity> flame = new ArrayList<>();
 
     public Bomber(int xx, int yy, Image img) {
         super(xx, yy, img);
@@ -50,7 +52,10 @@ public class Bomber extends Entity {
         if (keyCodeUsing.get(0) == KeyCode.UP || keyCodeUsing.get(0) == KeyCode.W) {
             if (countdown == 0) {
                 countdown = 3;
+
+                //Sound.play(Sound.footStep2,0);
                 if (Sprite.player_up == prevSprite) {
+                    Sound.play(Sound.footStep1,0);
                     prevSprite = Sprite.player_up_1;
                 } else if (Sprite.player_up_1 == prevSprite) {
                     prevSprite = Sprite.player_up_2;
@@ -81,7 +86,10 @@ public class Bomber extends Entity {
         if (keyCodeUsing.get(0) == KeyCode.DOWN || keyCodeUsing.get(0) == KeyCode.S) {
             if (countdown == 0) {
                 countdown = 3;
+
+                //Sound.play(Sound.footStep2,0);
                 if (Sprite.player_down == prevSprite) {
+                    Sound.play(Sound.footStep1,0);
                     prevSprite = Sprite.player_down_1;
                 } else if (Sprite.player_down_1 == prevSprite) {
                     prevSprite = Sprite.player_down_2;
@@ -112,7 +120,10 @@ public class Bomber extends Entity {
         if (keyCodeUsing.get(0) == KeyCode.RIGHT || keyCodeUsing.get(0) == KeyCode.D) {
             if (countdown == 0) {
                 countdown = 3;
+                //Sound.play(Sound.footStep1,0);
+
                 if (Sprite.player_right == prevSprite) {
+                    Sound.play(Sound.footStep1,0);
                     prevSprite = Sprite.player_right_1;
                 } else if (Sprite.player_right_1 == prevSprite) {
                     prevSprite = Sprite.player_right_2;
@@ -140,10 +151,14 @@ public class Bomber extends Entity {
     }
 
     public void moveLeft() {
+
         if (keyCodeUsing.get(0) == KeyCode.LEFT || keyCodeUsing.get(0) == KeyCode.A) {
             if (countdown == 0) {
                 countdown = 3;
+                //Sound.play(Sound.footStep1,0);
+
                 if (Sprite.player_left == prevSprite) {
+                    Sound.play(Sound.footStep1,0);
                     prevSprite = Sprite.player_left_1;
                 } else if (Sprite.player_left_1 == prevSprite) {
                     prevSprite = Sprite.player_left_2;
@@ -215,7 +230,7 @@ public class Bomber extends Entity {
             int yUnit = ((y2 + y) / 2) / Sprite.SCALED_SIZE;
             if (BombermanGame.mainMap[yUnit][xUnit] == ' ') {
                 Bom bom = new Bom(xUnit, yUnit, Sprite.bomb.getFxImage());
-                if (bombLimited == false) {
+                if (bombLimited == false && bombs.size() < 1) {
                     bombs.add(bom);
                     bombLimited = true;
                 } else {
@@ -227,7 +242,7 @@ public class Bomber extends Entity {
     }
 
     private boolean inTheErea() {
-        if(!bombs.isEmpty()) {
+        if (!bombs.isEmpty()) {
             int a1 = bombs.get(bombs.size() - 1).getX();
             int a2 = bombs.get(bombs.size() - 1).getY();
             int b1 = a1 + Sprite.SCALED_SIZE;
@@ -245,11 +260,10 @@ public class Bomber extends Entity {
     }
 
     public void undou() {
-        if (justBombed&& !bombs.isEmpty()) {
+        if (justBombed && !bombs.isEmpty()) {
             justBombed = inTheErea();
             if (!justBombed) BombermanGame.mainMap[bombs.get(bombs.size() - 1).getY() / Sprite.SCALED_SIZE]
                     [bombs.get(bombs.size() - 1).getX() / Sprite.SCALED_SIZE] = 'b';
-
         }
         for (int i = keyCodeUsing.size() - 1; i >= 0; i--)
             switch (keyCodeUsing.get(i)) {
@@ -257,7 +271,6 @@ public class Bomber extends Entity {
                 case W:
                     this.moveUp();
                     break;
-
                 case DOWN:
                 case S:
                     this.moveDown();
@@ -267,8 +280,8 @@ public class Bomber extends Entity {
                 case A:
                     this.moveLeft();
                     break;
-
                 case RIGHT:
+
                 case D:
                     this.moveRight();
                     break;
@@ -290,12 +303,13 @@ public class Bomber extends Entity {
 
     @Override
     public void fixedUpdate500() {
-            bombs.forEach(Entity::update);
+        bombs.forEach(Entity::update);
     }
 
     @Override
     public void render(GraphicsContext gc) {
-            bombs.forEach(g -> g.render(gc));
+        bombs.forEach(g -> g.render(gc));
+        flame.forEach(g -> g.render(gc));
         super.render(gc);
     }
 }

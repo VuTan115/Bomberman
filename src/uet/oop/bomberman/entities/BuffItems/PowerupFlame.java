@@ -6,6 +6,11 @@ public class PowerupFlame extends Items {
     public PowerupFlame() {
     }
 
+    @Override
+    public void eatItems() {
+
+    }
+
     public PowerupFlame(int xUnit, int yUnit, Image img) {
         super(xUnit, yUnit, img);
     }
