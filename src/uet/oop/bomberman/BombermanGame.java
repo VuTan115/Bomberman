@@ -103,6 +103,8 @@ public class BombermanGame extends Application {
 
     }
 
+
+//  still buggg
     public void transferTxtFileToMap(String str, int height) {
         int length = str.length();
         Entity object = null;
