@@ -6,6 +6,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.mobile.Bomb.Bom;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.*;
@@ -14,9 +15,9 @@ public class Bomber extends Entity {
     private double speed = 1;
     private int spaceStep = 5;
     private int way;
+    private int ctd = 0;
     private List<KeyCode> keyCodeUsing = new ArrayList<>();
 
-    private int justBombed = 0;
     private Sprite prevSprite = null;
     private List<Sprite> deadSprites = new ArrayList<>();
 
@@ -43,9 +44,12 @@ public class Bomber extends Entity {
         if (keyCodeUsing.get(0) == KeyCode.UP || keyCodeUsing.get(0) == KeyCode.W) {
             if (countdown == 0) {
                 countdown = 3;
+
                 if (Sprite.player_up == prevSprite) {
+                    Sound.play(Sound.footStep1, 0);
                     prevSprite = Sprite.player_up_1;
                 } else if (Sprite.player_up_1 == prevSprite) {
+
                     prevSprite = Sprite.player_up_2;
                 } else {
                     prevSprite = Sprite.player_up;
@@ -77,6 +81,7 @@ public class Bomber extends Entity {
                 if (Sprite.player_down == prevSprite) {
                     prevSprite = Sprite.player_down_1;
                 } else if (Sprite.player_down_1 == prevSprite) {
+                    Sound.play(Sound.footStep1,0);
                     prevSprite = Sprite.player_down_2;
                 } else {
                     prevSprite = Sprite.player_down;
@@ -106,6 +111,7 @@ public class Bomber extends Entity {
             if (countdown == 0) {
                 countdown = 3;
                 if (Sprite.player_right == prevSprite) {
+                    Sound.play(Sound.footStep1,0);
                     prevSprite = Sprite.player_right_1;
                 } else if (Sprite.player_right_1 == prevSprite) {
                     prevSprite = Sprite.player_right_2;
@@ -137,8 +143,10 @@ public class Bomber extends Entity {
             if (countdown == 0) {
                 countdown = 3;
                 if (Sprite.player_left == prevSprite) {
+
                     prevSprite = Sprite.player_left_1;
                 } else if (Sprite.player_left_1 == prevSprite) {
+                    Sound.play(Sound.footStep1,0);
                     prevSprite = Sprite.player_left_2;
                 } else {
                     prevSprite = Sprite.player_left;
@@ -180,6 +188,7 @@ public class Bomber extends Entity {
     }
 
     public void stopped(KeyEvent ke) {
+        if (dead) return;
         keyCodeUsing.remove(ke.getCode());
         if (keyCodeUsing.isEmpty()) {
             switch (ke.getCode()) {
@@ -231,6 +240,7 @@ public class Bomber extends Entity {
     }
 
     public void undou() {
+
         boolean boo = false;
         if (!bombs.isEmpty()) boo = inTheArea(bombs.get(bombs.size() - 1));
         if (boo) {
@@ -266,19 +276,26 @@ public class Bomber extends Entity {
     @Override
     public boolean checkCollision(int nextStepX, int nextStepY) {
         if (BombermanGame.mainMap[nextStepY][nextStepX] == '1'
-        || BombermanGame.mainMap[nextStepY][nextStepX] == '2') dead = true;
+                || BombermanGame.mainMap[nextStepY][nextStepX] == '2'
+                || BombermanGame.mainMap[nextStepY][nextStepX] == '3'
+                || BombermanGame.mainMap[nextStepY][nextStepX] == '4'
+                || BombermanGame.mainMap[nextStepY][nextStepX] == 'f') dead = true;
         return BombermanGame.mainMap[nextStepY][nextStepX] != ' ';
     }
 
     @Override
     public void fixedUpdate30() {
-        if (!dead) undou();
+        if (!dead) {
+            undou();
+            if (ctd++ == 0) {
+                bombs.forEach(Entity::update);
+            } else if (ctd == 3) ctd = 0;
+        }
     }
 
     @Override
     public void fixedUpdate500() {
-        if (!dead) bombs.forEach(Entity::update);
-        else {
+        if (dead) {
             playerDead();
         }
     }
@@ -291,8 +308,10 @@ public class Bomber extends Entity {
     }
 
     private void playerDead() {
+
         if (deadSprites.isEmpty()) {
             try {
+                Sound.play(Sound.DEAD,0);
                 Thread.sleep(1000);
                 System.exit(1);
             } catch (InterruptedException e) {

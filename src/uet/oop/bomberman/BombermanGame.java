@@ -7,13 +7,18 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
+import uet.oop.bomberman.entities.BuffItems.SpeedItem;
+import uet.oop.bomberman.entities.NotMove.Brick;
+import uet.oop.bomberman.entities.NotMove.Grass;
+import uet.oop.bomberman.entities.NotMove.Portal;
+import uet.oop.bomberman.entities.NotMove.Wall;
 import uet.oop.bomberman.entities.mobile.*;
+import uet.oop.bomberman.entities.mobile.Nomster.Balloon;
+import uet.oop.bomberman.entities.mobile.Nomster.Oneal;
 import uet.oop.bomberman.graphics.Sprite;
 
-import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -33,7 +38,7 @@ public class BombermanGame extends Application {
     private Bomber bomber;
 
     private List<Entity> entities = new ArrayList<>();
-    private List<Entity> dynamicObject = new ArrayList<>();
+    public static List<Entity> dynamicObject = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
     private List<Grass> grass = new ArrayList<>();
 
@@ -58,6 +63,7 @@ public class BombermanGame extends Application {
         stage.setTitle("Bomberman");
         stage.getIcons().add(new Image("/textures/gameLogo.jpg"));
         stage.resizableProperty().setValue(Boolean.FALSE);
+        Sound.play(Sound.BACKGROUND1,10);
         stage.show();
 
         AnimationTimer timer = new AnimationTimer() {
